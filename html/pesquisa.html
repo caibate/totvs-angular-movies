@@ -1,0 +1,15 @@
+﻿Titulo: <input ng-model="filtro.Titulo"></input><br>
+Genero: <select ng-model="filtro.Genero" ng-options="g.Descricao for g in generos track by g.Id"></select><br>
+Order: <select ng-model="order">
+			<option value="Titulo">Titulo | asc</option>
+			<option value="-Titulo">Titulo | des</option>
+			<option value="AnoPublicacao">Ano | asc</option>
+			<option value="-AnoPublicacao">Ano | des</option>
+			<option value="Genero.Descricao">Genero | asc</option>
+			<option value="-Genero.Descricao">Genero | des</option>
+		</select><br>
+<ul>
+	<li ng-repeat="filme in filmes | filter:filtro | orderBy:order">
+		{{filme.Titulo}} - {{filme.AnoPublicacao}} - {{filme.Genero.Descricao}}
+	</li>
+</ul>
