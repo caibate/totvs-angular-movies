@@ -1,0 +1,32 @@
+﻿<div class="row">
+	<div class="col-md-4">
+		<input ng-model="filtro.Titulo" placeholder="Informe um titulo"></input><br>
+	</div>
+	<div class="col-md-4">
+		<select ng-model="filtro.Genero" ng-options="g.Descricao for g in generos track by g.Id">
+		</select>
+	</div>
+	<div class="col-md-4">
+		<select ng-model="order">
+			<option value="Titulo">Titulo | asc</option>
+			<option value="-Titulo">Titulo | des</option>
+			<option value="AnoPublicacao">Ano | asc</option>
+			<option value="-AnoPublicacao">Ano | des</option>
+			<option value="Genero.Descricao">Genero | asc</option>
+			<option value="-Genero.Descricao">Genero | des</option>
+		</select>
+	</div>
+</div>
+<hr>
+<table class="table table-striped table-bordered">
+	<tr>
+		<th>Titulo</th>
+		<th>Ano</th>
+		<th>Genero</th>
+	</tr>
+	<tr ng-repeat="filme in filmes | filter:filtro | orderBy:order">
+		<td>{{filme.Titulo}}</td>
+		<td>{{filme.AnoPublicacao}}</td>
+		<td>{{filme.Genero.Descricao}}</td>
+	</tr>
+</table>

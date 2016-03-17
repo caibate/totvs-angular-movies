@@ -1,0 +1,13 @@
+﻿<table class="table table-striped table-bordered">
+	<tr>
+		<th>Descricao</th>
+		<th>Idade Minina</th>
+	</tr>
+	<tr ng-repeat="classificacao in classificacoes">
+		<td>
+			<a href="#classificacao/{{classificacao.Id}}">
+				{{classificacao.Descricao}}</a>
+		</td>
+		<td>{{classificacao.IdadeMinima}}</td>
+	</tr>
+</table>

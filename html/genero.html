@@ -1,0 +1,12 @@
+﻿<table class="table table-striped table-bordered" ng-init="showGeneros()">
+	<tr>
+		<th>Descricao</th>
+	</tr>
+	<tr ng-repeat="genero in generos">
+		<td>
+			<a href="#/genero/{{genero.Id}}">
+				{{genero.Descricao}}
+			</a>
+		</td>
+	</tr>
+</table>
