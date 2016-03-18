@@ -1,16 +1,47 @@
-﻿<form>
-	<div class="form-group">
+﻿<form ng-init="showClassificacao()" name="formClassificacao">
+	<div class="form-group"
+		ng-class="{ 'has-error' : formClassificacao.descricao.$invalid && !formClassificacao.descricao.$pristine }">
 		<label>Descrição</label>
-		<input type="text" class="form-control" ng-model="classificacao.Descricao">
+		<input 	name="descricao" 
+				type="text"
+				class="form-control"
+				ng-model="classificacao.Descricao"
+				ng-minlength = "3"
+				ng-maxlength = "50"
+				required />
+		<div 	ng-show="formClassificacao.descricao.$error.required && !formClassificacao.descricao.$pristine"
+				class="help-block">Descrição é requerida</div>
+		<div 	ng-show="formClassificacao.descricao.$error.minlength&& !formClassificacao.descricao.$pristine"
+				class="help-block">Descrição é muito curta</div>
+		<div 	ng-show="formClassificacao.descricao.$error.maxlength&& !formClassificacao.descricao.$pristine"
+				class="help-block">Descrição é muito longa</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group"
+		ng-class="{ 'has-error' : formClassificacao.caracteristica.$invalid && !formClassificacao.caracteristica.$pristine }">
 		<label>Caracteristica</label>
-		<input type="text" class="form-control" ng-model="classificacao.Caracteristica">
+		<input 	name="caracteristica" 
+				type="text"
+				class="form-control"
+				ng-model="classificacao.Caracteristica"
+				ng-minlength = "20"
+				ng-maxlength = "200"
+				required />
+		<div 	ng-show="formClassificacao.caracteristica.$error.required && !formClassificacao.caracteristica.$pristine"
+				class="help-block">Caracteristica é requerida</div>
+		<div 	ng-show="formClassificacao.caracteristica.$error.minlength&& !formClassificacao.caracteristica.$pristine"
+				class="help-block">Caracteristica é muito curta</div>
+		<div 	ng-show="formClassificacao.caracteristica.$error.maxlength&& !formClassificacao.caracteristica.$pristine"
+				class="help-block">Caracteristica é muito longa</div>
 	</div>
 	<div class="form-group">
 		<label>Idade Minima</label>
-		<input type="number" class="form-control" ng-model="classificacao.IdadeMinima">
+		<input type="number" class="form-control" ng-model="classificacao.IdadeMinima"/>
 	</div>
 
-	<button type="button" class="btn btn-default">Submit</button>
+	<button type="button"
+			class="btn btn-success"
+			ng-click="save()"
+			ng-disabled="!formClassificacao.$valid">Salvar</button><br/><br/>
+	<div 	class="alert alert-danger"
+			ng-show="errorMessage != ''">{{errorMessage}}</div>
 </form>

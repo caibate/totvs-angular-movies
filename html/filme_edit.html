@@ -1,0 +1,77 @@
+﻿<form ng-init="showFilme()" name="formFilme">
+	<div class="form-group">
+		<label>Descrição</label>
+		<input 	name="titulo" 
+				type="text"
+				class="form-control"
+				ng-model="filme.Titulo"
+				ng-minlength = "3"
+				ng-maxlength = "50"
+				required />
+	</div>
+	<div class="form-group">
+		<label>Ano Publicação</label>
+		<input 	name="anopublicacao" 
+				type="number"
+				class="form-control"
+				ng-model="filme.AnoPublicacao"
+				ng-minlength = "4"
+				ng-maxlength = "4"
+				required />
+	</div>
+	<div class="form-group">
+		<label>Duração</label>
+		<input 	name="duracao" 
+				type="number"
+				class="form-control"
+				ng-model="filme.Duracao"
+				ng-minlength = "1"
+				ng-maxlength = "3"
+				required />
+	</div>
+	<div class="form-group">
+		<label>Trailer</label>
+		<input 	name="trailer" 
+				type="number"
+				class="form-control"
+				ng-model="filme.Trailer"
+				ng-minlength = "20"
+				ng-maxlength = "200"
+				required />
+	</div>
+	<div class="form-group">
+		<label>Sinopse</label>
+		<textarea name="sinopse" 
+					class="form-control"
+					ng-model="filme.Sinopse"
+					ngMinlength="30" 
+					gMaxlength="500"
+					required></textarea>
+
+	</div>
+	<div class="form-group">
+		<label>Genero</label>
+		<select name="genero"
+				class="form-control"
+				ng-model="filme.Genero"
+				ng-options="g.Descricao for g in generos track by g.Id">
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Classificacao Indicativa</label>
+		<select name="classificacao"
+				class="form-control"
+				ng-model="filme.ClassificacaoIndicativa"
+				ng-options="c.Descricao for c in classificacoes track by c.Id">
+		</select>
+	</div>
+	<button type="button"
+			class="btn btn-success"
+			ng-click="save()">Salvar</button> 
+	<button type="button"
+			class="btn btn-danger"
+			ng-click="delete()">Excluir</button>
+			<br/><br/>
+	<div 	class="alert alert-danger"
+			ng-show="errorMessage != ''">{{errorMessage}}</div>
+</form>

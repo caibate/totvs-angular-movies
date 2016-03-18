@@ -11,6 +11,11 @@ angular.module('movieApp', [
 		controller: 'FilmeController'
 	})
 
+	$routeProvider.when('/filme/:id', {
+		templateUrl: 'html/filme_edit.html',
+		controller: 'FilmeController'
+	})
+
 	.when('/genero', {
 		templateUrl: 'html/genero.html',
 		controller: 'GeneroController'
@@ -28,7 +33,7 @@ angular.module('movieApp', [
 
 	.when('/classificacao/:id', {
 		templateUrl: 'html/classificacao_edit.html',
-		controller: 'ClassificacaoEditController'
+		controller: 'ClassificacaoController'
 	})
 
 	.otherwise({ redirectTo: '/filme' });

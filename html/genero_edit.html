@@ -1,7 +1,25 @@
-﻿<form ng-init="showGenero()">
-	<div class="form-group">
+﻿<form ng-init="showGenero()" name="formGenero">
+	<div class="form-group"
+	ng-class="{ 'has-error' : formGenero.descricao.$invalid && !formGenero.descricao.$pristine }">
 		<label>Descrição</label>
-		<input type="text" class="form-control" ng-model="genero.Descricao">
+		<input 	name="descricao" 
+				type="text"
+				class="form-control"
+				ng-model="genero.Descricao"
+				ng-minlength = "3"
+				ng-maxlength = "50"
+				required />
+		<div 	ng-show="formGenero.descricao.$error.required && !formGenero.descricao.$pristine"
+				class="help-block">Descrição é requerida</div>
+		<div 	ng-show="formGenero.descricao.$error.minlength&& !formGenero.descricao.$pristine"
+				class="help-block">Descrição é muito curta</div>
+		<div 	ng-show="formGenero.descricao.$error.maxlength&& !formGenero.descricao.$pristine"
+				class="help-block">Descrição é muito longa</div>
 	</div>
-	<button type="button" class="btn btn-default">Submit</button>
+	<button type="button"
+			class="btn btn-success"
+			ng-click="save()"
+			ng-disabled="!formGenero.$valid">Salvar</button><br/><br/>
+	<div 	class="alert alert-danger"
+			ng-show="errorMessage != ''">{{errorMessage}}</div>
 </form>
