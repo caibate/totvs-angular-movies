@@ -1,0 +1,35 @@
+﻿<form ng-init="showFilme()" name="formFilme">
+	<div class="form-group">
+		<label>Titulo:</label><br>
+		<b>{{filme.Titulo}}</b>
+	</div>
+	<div class="form-group">
+		<label>Publicação:</label><br>
+		<b>{{filme.AnoPublicacao}}</b>
+	</div>
+	<div class="form-group">
+		<label>Duracao:</label><br>
+		<b>{{filme.Duracao}}</b>
+	</div>
+	<div class="form-group">
+		<label>Trailer</label><br>
+		{{filme.Trailer}}
+	</div>
+	<div class="form-group">
+		<label>Sinopse</label><br>
+		{{filme.Sinopse}}
+
+	</div>
+	<div class="form-group">
+		<label>Genero</label><br>
+		{{filme.Genero.Descricao}}
+	</div>
+	<div class="form-group">
+		<label>Classificacao Indicativa</label><br>
+		{{filme.ClassificacaoIndicativa.Descricao}}
+	</div>
+	<a class="btn btn-warning"
+		role="button"
+		ng-show="isLogged()"
+		href="#/filme/edit/{{filme.Id}}">Editar</a>
+</form>

@@ -8,9 +8,10 @@
 		<title>TOTVS Movies</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
 	</head>
 	<body>
-		<nav class="navbar navbar-default" ng-controller="MenuController">
+		<nav class="navbar navbar-default" ng-controller="MenuController" ng-init="initLogin();">
 			<div class="container">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -25,11 +26,45 @@
 					<ul class="nav navbar-nav">
 						<li ng-class="{ active : isActive('/filme')}">
 							<a href="#/filme">Filme</a></li>
-						<li ng-class="{ active : isActive('/genero')}">
+						<li ng-class="{ active : isActive('/genero')}" ng-show="isLogged()">
 							<a href="#/genero">Genero</a></li>
-						<li ng-class="{ active : isActive('/classificacao')}">
+						<li ng-class="{ active : isActive('/classificacao')}" ng-show="isLogged()">
 							<a href="#/classificacao">Classificação</a></li>
+						<li ng-class="{ active : isActive('/usuario')}" ng-show="isLogged()">
+							<a href="#/usuario">Usuario</a>
 					</ul>
+					<form class="navbar-form navbar-right"
+							name="formAuth" ng-hide="isLogged()">
+						<div class="form-group" ng-class="
+						{ 'has-error' : formAuth.email.$invalid && !formAuth.email.$pristine }">
+							<input name="email"
+									type="email"
+									placeholder="E-mail"
+									class="form-control"
+									ng-model="auth.Email"
+									required>
+						</div>
+						<div class="form-group" ng-class="
+						{ 'has-error' : formAuth.senha.$invalid && !formAuth.senha.$pristine }">
+							<input name="senha"
+									type="password" 
+									placeholder="Senha"
+									class="form-control"
+									ng-model="auth.Senha"
+									ng-minlength = "8"
+									required>
+						</div>
+						<button type="button"
+								class="btn btn-success"
+								ng-click="login()"
+								ng-disabled="formAuth.$invalid"
+								>Login</button>
+					</form>
+					<div class="navbar-form navbar-right"
+						 ng-show="isLogged()">
+						{{user.Nome}} | <a href="" ng-click="logout()">Logout</a>
+						<img ng-src="{{user.PictureUrl}}" class="foto-usuario" onerror="this.src = 'img/usuario.png'" />
+					</div>
 				</div>
 			</div>
 		</nav>
@@ -40,6 +75,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="js/angular.js"></script>
 	<script type="text/javascript" src="js/angular-route.js"></script>
+	<script type="text/javascript" src="js/angular-cookies.js"></script>
 	<script type="text/javascript" src="js/services.js"></script>
 	<script type="text/javascript" src="js/controllers.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>

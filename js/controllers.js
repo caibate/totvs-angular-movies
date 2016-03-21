@@ -1,13 +1,39 @@
 angular.module('movieApp.controllers', [])
 
-.controller('MenuController', ['$scope', '$location', function ($scope, $location) {
+.controller('MenuController', ['$scope', '$location', 'ApiService', 'AuthService', function ($scope, $location, ApiService, AuthService) {
 	$scope.isActive = function(rota){
 		return $location.path().startsWith(rota);
+	}
+
+	$scope.login = function(){
+		ApiService.authUsuario($scope.auth).success(function(retorno){
+			if(retorno.Error.HasError)
+				alert(retorno.Error.Message);
+			else{
+				$scope.user = retorno.UserData;
+				AuthService.login($scope.user);
+			}
+		})
+	}
+
+	$scope.logout = function(){
+		AuthService.logout();
+		$scope.user = null;
+		$scope.auth = {};
+	}
+
+	$scope.isLogged = function(){
+		return AuthService.isLogged();
+	}
+
+	$scope.initLogin = function(){
+		var u = AuthService.getUser();
+		$scope.user = u;
 	}
 }])
 
 
-.controller('FilmeController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', function ($scope, ApiService, $routeParams, $rootScope, $location) {
+.controller('FilmeController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', 'AuthService', function ($scope, ApiService, $routeParams, $rootScope, $location, AuthService) {
 	$scope.successMessage = '';
 	$scope.errorMessage = '';
 
@@ -16,6 +42,10 @@ angular.module('movieApp.controllers', [])
 			$scope.generos = retorno.Records;
 		}
 	);
+
+	$scope.isLogged = function(){
+		return AuthService.isLogged();
+	}
 
 	$scope.showFilmes = function(){
 		if($rootScope.successMessage){
@@ -39,7 +69,13 @@ angular.module('movieApp.controllers', [])
 		ApiService.getClassificacoes().success(function(retorno){
 			$scope.classificacoes = retorno.Records;
 		})	
+	}
 
+	$scope.editFilme = function(){
+		if(!AuthService.isLogged())
+			$location.path('/filme');
+		
+		$scope.showFilme();
 	}
 
 	$scope.save = function(){
@@ -69,9 +105,12 @@ angular.module('movieApp.controllers', [])
 
 }])
 
-.controller('GeneroController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', function ($scope, ApiService, $routeParams, $rootScope, $location) {
+.controller('GeneroController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', 'AuthService', function ($scope, ApiService, $routeParams, $rootScope, $location, AuthService) {
 	$scope.successMessage = '';
 	$scope.errorMessage = '';
+
+	if(!AuthService.isLogged())
+		$location.path("/filme");
 
 	$scope.showGeneros = function(){
 		if($rootScope.successMessage){
@@ -104,9 +143,12 @@ angular.module('movieApp.controllers', [])
 
 }])
 
-.controller('ClassificacaoController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', function ($scope, ApiService, $routeParams, $rootScope, $location) {
+.controller('ClassificacaoController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', 'AuthService', function ($scope, ApiService, $routeParams, $rootScope, $location, AuthService) {
 	$scope.successMessage = '';
 	$scope.errorMessage = '';
+	
+	if(!AuthService.isLogged())
+		$location.path("/filme");
 
 	$scope.showClassificacoes = function(){
 		if($rootScope.successMessage){
@@ -136,5 +178,48 @@ angular.module('movieApp.controllers', [])
 			}
 		})
 	}
+}])
+
+.controller('UsuarioController', ['$scope', 'ApiService', '$routeParams', '$rootScope', '$location', 'AuthService', function ($scope, ApiService, $routeParams, $rootScope, $location, AuthService) {
+	$scope.successMessage = '';
+	$scope.errorMessage = '';
+
+	if(!AuthService.isLogged())
+		$location.path("/filme");
+
+	$scope.showUsuarios = function(){
+		if($rootScope.successMessage){
+			$scope.successMessage = $rootScope.successMessage;
+			$rootScope.successMessage = null;
+		}
+
+		ApiService.getUsuarios().success(function(retorno){
+			$scope.usuarios = retorno.Records;
+		})
+	}
+
+	$scope.showUsuario = function(){
+		if(!isNaN($routeParams.id))
+			ApiService.getUsuario($routeParams.id).success(function(retorno){
+				$scope.usuario = retorno.Record;
+			})
+	}
+
+	$scope.save = function(){
+		ApiService.saveUsuario($scope.usuario).success(function(retorno){
+			if(retorno.Error.HasError)
+				$scope.errorMessage = retorno.Error.Message;
+			else {
+				$rootScope.successMessage = 'Usuario salvo com sucesso';
+				$location.path('/usuario');
+			}
+		})
+	}
 
 }])
+
+
+
+
+
+

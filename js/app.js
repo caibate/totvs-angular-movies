@@ -1,5 +1,6 @@
 angular.module('movieApp', [
 	'ngRoute',
+	'ngCookies',
 	'movieApp.services',
 	'movieApp.controllers'
 ])
@@ -11,7 +12,12 @@ angular.module('movieApp', [
 		controller: 'FilmeController'
 	})
 
-	$routeProvider.when('/filme/:id', {
+	.when('/filme/:id', {
+		templateUrl: 'html/filme_view.html',
+		controller: 'FilmeController'
+	})
+
+	.when('/filme/edit/:id', {
 		templateUrl: 'html/filme_edit.html',
 		controller: 'FilmeController'
 	})
@@ -34,6 +40,16 @@ angular.module('movieApp', [
 	.when('/classificacao/:id', {
 		templateUrl: 'html/classificacao_edit.html',
 		controller: 'ClassificacaoController'
+	})
+
+	.when('/usuario', {
+		templateUrl: 'html/usuario.html',
+		controller: 'UsuarioController'
+	})
+
+	.when('/usuario/:id', {
+		templateUrl: 'html/usuario_edit.html',
+		controller: 'UsuarioController'
 	})
 
 	.otherwise({ redirectTo: '/filme' });

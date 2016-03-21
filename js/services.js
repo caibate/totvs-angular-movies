@@ -45,4 +45,48 @@ angular.module('movieApp.services', [])
 	this.saveClassificacao = function(classificacao){
 		return $http.post(urlBase + 'ClassificacaoIndicativa', classificacao);
 	}
+
+	this.getUsuarios = function(){
+		return $http.get(urlBase + 'Usuario');
+	}
+
+	this.getUsuario = function(id){
+		return $http.get(urlBase + 'Usuario/' + id);
+	}
+
+	this.saveUsuario = function(usuario){
+		return $http.post(urlBase + 'Usuario', usuario);
+	}
+
+	this.authUsuario = function(auth){
+		return $http.post(urlBase + 'Auth', auth);
+	}
 }])
+
+.service('AuthService', ['$cookieStore', function ($cookieStore) {
+	
+	this.login = function(usuario){
+		$cookieStore.put('movieApp.user', usuario);
+	};
+
+	this.logout = function(){
+		$cookieStore.remove('movieApp.user');
+	}
+
+	this.isLogged = function(){
+		var u = $cookieStore.get('movieApp.user');
+		return (u) ? true : false;
+	}
+
+	this.getUser = function(){
+		return $cookieStore.get('movieApp.user');
+	}
+
+}])
+
+
+
+
+
+
+
