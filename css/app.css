@@ -3,3 +3,10 @@
 	max-width: 35px;
 	border-radius: 50%;
 }
+
+.msg {
+	display: none;
+	position: absolute;
+	top: 0px;
+	width: 500px;
+}

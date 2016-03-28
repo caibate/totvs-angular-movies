@@ -21,7 +21,8 @@
 	</div>
 	<div class="form-group">
 		<label>Duração</label>
-		<input 	name="duracao" 
+		<input 	id="duracao"
+				name="duracao" 
 				type="number"
 				class="form-control"
 				ng-model="filme.Duracao"
@@ -32,7 +33,7 @@
 	<div class="form-group">
 		<label>Trailer</label>
 		<input 	name="trailer" 
-				type="number"
+				type="text"
 				class="form-control"
 				ng-model="filme.Trailer"
 				ng-minlength = "20"
@@ -75,3 +76,8 @@
 	<div 	class="alert alert-danger"
 			ng-show="errorMessage != ''">{{errorMessage}}</div>
 </form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#duracao').inputmask("999");
+	})
+</script>

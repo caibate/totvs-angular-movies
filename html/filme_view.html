@@ -13,7 +13,7 @@
 	</div>
 	<div class="form-group">
 		<label>Trailer</label><br>
-		{{filme.Trailer}}
+		<a class="fancybox fancybox.iframe" href="{{filme.Trailer}}">{{filme.Trailer}}</a>
 	</div>
 	<div class="form-group">
 		<label>Sinopse</label><br>
@@ -33,3 +33,8 @@
 		ng-show="isLogged()"
 		href="#/filme/edit/{{filme.Id}}">Editar</a>
 </form>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".fancybox").fancybox();
+	});
+</script>

@@ -51,6 +51,11 @@ angular.module('movieApp.controllers', [])
 		if($rootScope.successMessage){
 			$scope.successMessage = $rootScope.successMessage;
 			$rootScope.successMessage = null;
+			$('.alert-success').slideDown(1000, function(){
+				setInterval(function(){
+					$('.alert-success').fadeOut(1000)
+				}, 2000);
+			});
 		}
 
 		ApiService.getFilmes().success(
@@ -116,6 +121,11 @@ angular.module('movieApp.controllers', [])
 		if($rootScope.successMessage){
 			$scope.successMessage = $rootScope.successMessage;
 			$rootScope.successMessage = null;
+			$('.alert-success').slideDown(1000, function(){
+				setInterval(function(){
+					$('.alert-success').fadeOut(1000)
+				}, 2000);
+			});
 		}
 		
 		ApiService.getGeneros().success(function(retorno){
@@ -154,6 +164,11 @@ angular.module('movieApp.controllers', [])
 		if($rootScope.successMessage){
 			$scope.successMessage = $rootScope.successMessage;
 			$rootScope.successMessage = null;
+			$('.alert-success').slideDown(1000, function(){
+				setInterval(function(){
+					$('.alert-success').fadeOut(1000)
+				}, 2000);
+			});
 		}
 
 		ApiService.getClassificacoes().success(function(retorno){
@@ -191,6 +206,11 @@ angular.module('movieApp.controllers', [])
 		if($rootScope.successMessage){
 			$scope.successMessage = $rootScope.successMessage;
 			$rootScope.successMessage = null;
+			$('.alert-success').slideDown(1000, function(){
+				setInterval(function(){
+					$('.alert-success').fadeOut(1000)
+				}, 2000);
+			});
 		}
 
 		ApiService.getUsuarios().success(function(retorno){
@@ -217,9 +237,3 @@ angular.module('movieApp.controllers', [])
 	}
 
 }])
-
-
-
-
-
-
